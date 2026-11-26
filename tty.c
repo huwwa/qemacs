@@ -1120,7 +1120,7 @@ static void tty_read_handler(void *opaque)
             if (n1 == 27 && ts->nb_params >= 3 && ts->params[2] >= 0) {
                 /* xterm modifyOtherKeys extension */
                 ch = ts->params[2];
-                if (ch == 8 && (ts->term_flags |= KBS_CONTROL_H))
+                if (ch == 8 && (ts->term_flags & KBS_CONTROL_H))
                     ch = KEY_DEL;
                 // XXX: iTerm2 3.14.19 encoding bug for M-C-a to M-C-z
                 if (n2 == 4 && ch >= 'A' && ch <= 'Z') {
@@ -1822,7 +1822,7 @@ static void tty_dpy_flush(QEditScreen *s)
                         TTY_FPRINTF(s->STDOUT, "\033[%dm", 30 + (fgcolor & 7));
                     } else {
                         TTY_FPRINTF(s->STDOUT, "\033[%dm",
-                                    fgcolor > 8 ? 90 + fgcolor - 8 :
+                                    fgcolor > 7 ? 90 + fgcolor - 8 :
                                     30 + fgcolor);
                     }
                 }
